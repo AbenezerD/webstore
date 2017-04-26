@@ -7,18 +7,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CustomerImp;
+import dao.UserImp;
 import model.Customer;
 import model.User;
 
 @WebServlet("/CustomerController")
 public class CustomerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private CustomerImp dbm;
+    private UserImp userDb;
+      
     public CustomerController() {
     }
 
+    @Override
+    public void init() throws ServletException {
+    	dbm = new CustomerImp();
+    	userDb = new UserImp();
+    }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("view/addCustomerInfo.jsp").forward(request, response);
+		request.getRequestDispatcher("addCustomerInfo.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,10 +37,17 @@ public class CustomerController extends HttpServlet {
 		String uName = request.getParameter("uName");
 		String pwd = request.getParameter("pwd");
 		
-		Customer customer = new Customer(name, email, phone, null, new User(uName, pwd));
+		User user = new User(uName,pwd);
+		User currentUser = userDb.addUser(user);
+	
+		//User currentUser = userDb.getUserById(user.getUsername());
+		
+		Customer customer = new Customer(name, email, phone, currentUser.getUserid());
+		dbm.saveCustomer(customer);
+		
 		request.getSession().setAttribute("customer", customer);
-		request.getSession().setAttribute("user_info", customer.getUser());
-		request.getSession().setAttribute("userName", customer.getUser().getUsername());
+		request.getSession().setAttribute("user_info", currentUser);
+		request.getSession().setAttribute("userName", currentUser.getUsername());
 		
 		response.sendRedirect("AddressController");
 	}

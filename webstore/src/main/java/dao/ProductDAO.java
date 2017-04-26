@@ -9,16 +9,11 @@ import model.Product;
 
 public class ProductDAO {
 	
-	String description = "Ditching the cheeky, self-aware wink that helped to excuse the concept's inherent corniness, the movie attempts to look polished and 'cool,'"
-			+ " but the been-there animation can't compete with the then-cutting-edge puppetry of the 1990 live-action movie.";
 	Map<Integer, Product> productDb = new HashMap<>();
+	
 	{
-		productDb.put(1, new Product(1, "Apple McBook", "$2000.00", "images/ab.jpg", description));
-		productDb.put(2, new Product(2, "Samsung Galaxy S6", "$590", "images/ab.jpg", description));
-		productDb.put(3, new Product(3, "HTC M8", "$350.00", "images/ab.jpg", description));
-		productDb.put(4, new Product(4, "Lenovo Yoga", "$799.99", "images/ab.jpg", description));
-		productDb.put(5, new Product(5, "Hp Server", "$3500.00", "images/ab.jpg", description));
-		productDb.put(6, new Product(6, "Mouse and KeyBoard set", "$55.00", "images/ab.jpg", description));
+		productDb.put(1, new Product(1,"name","price","image","des"));
+		
 	}
 	
 	public void addProduct(Product product){

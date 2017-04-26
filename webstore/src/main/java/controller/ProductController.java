@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dao.CustomerDAO;
 import dao.ProductDAO;
+import dao.ProductImp;
 import model.Cart;
 import model.Product;
 
@@ -21,20 +25,23 @@ public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ProductDAO dao;
+	private ProductImp dbm;
 	private CustomerDAO cDao;
-	public static final String lIST_PRODUCTS = "view/listProducts.jsp";
-	public static final String INSERT_OR_EDIT = "view/product.jsp";
-	public static final String CART = "view/cart.jsp";
+	public static final String lIST_PRODUCTS = "listProducts.jsp";
+	public static final String INSERT_OR_EDIT = "product.jsp";
+	public static final String CART = "cart.jsp";
 	public static final String DETAIL = "ProductDetail";
 
 	@Override
 	public void init() throws ServletException {
 		dao = new ProductDAO();
+		dbm = new ProductImp();
 		cDao = new CustomerDAO();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
 		Cart cart;
 		HttpSession session = request.getSession();
 		if (session == null || session.getAttribute("cart") == null) {
@@ -50,17 +57,21 @@ public class ProductController extends HttpServlet {
 		if (action.equalsIgnoreCase("addToCart")) {
 			forward = lIST_PRODUCTS;
 			int productId = Integer.parseInt(request.getParameter("productId"));
-			Product product = dao.getProductById(productId);
+			Product product = dbm.getProductById(productId);
 			cart.addProduct(product); // add to product Cart
 			session.setAttribute("cart", cart);
+			RequestDispatcher view = request.getRequestDispatcher(forward);
+			view.forward(request, response);
 
 		}
 		else if (action.equalsIgnoreCase("detail")) {
 			forward = DETAIL;
 			int productId = Integer.parseInt(request.getParameter("productId"));
-			Product product = dao.getProductById(productId);
+			Product product = dbm.getProductById(productId);
 			session.setAttribute("product", product);
 			System.out.println(product.getName());
+			RequestDispatcher view = request.getRequestDispatcher(forward);
+			view.forward(request, response);
 
 		}
 		/*
@@ -74,14 +85,18 @@ public class ProductController extends HttpServlet {
 		 */
 		else {
 			forward = lIST_PRODUCTS;
-			request.setAttribute("products", dao.getAllProducts());
+			ObjectMapper mapper = new ObjectMapper();
+			String json = mapper.writeValueAsString(dbm.getAllProducts());
+		    response.setContentType("text/json");
+		    response.setCharacterEncoding("UTF-8");
+
+		    out.write(json);
+		    out.close();
+		    //request.setAttribute("products", dao.getAllProducts());
 		}
 
-		session.setAttribute("products", dao.getAllProducts());
-		session.setAttribute("cusomers", cDao.getAllCustomers());
-
-		RequestDispatcher view = request.getRequestDispatcher(forward);
-		view.forward(request, response);
+//		session.setAttribute("products", dao.getAllProducts());
+//		session.setAttribute("cusomers", cDao.getAllCustomers());
 
 		/*
 		 * } else {
@@ -99,13 +114,13 @@ public class ProductController extends HttpServlet {
 
 		Product product = new Product(0, prName, price, "images/ab.jpg", "");
 		if (prId == null || prId.isEmpty()) {
-			product.setProductId(dao.genId());
+			product.setProductId(dbm.genId());
 		} else {
 			product.setProductId(Integer.parseInt(prId));
 		}
-		dao.addProduct(product);
+		dbm.addProduct(product);
 		RequestDispatcher view = request.getRequestDispatcher(lIST_PRODUCTS);
-		request.setAttribute("products", dao.getAllProducts());
+		request.setAttribute("products", dbm.getAllProducts());
 		view.forward(request, response);
 
 	}

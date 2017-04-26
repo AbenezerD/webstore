@@ -13,9 +13,7 @@ public class CustomerDAO {
 Map<Integer, Customer> customerDb = new HashMap<>();
 	
 	{
-		customerDb.put(1, new Customer(1, new User("esa", "123")));
-		customerDb.put(2, new Customer(2, new User("ab", "456")));
-		customerDb.put(3, new Customer(3, new User("guest", "111")));
+		customerDb.put(1, new Customer("name","email","99999",200));
 	}
 	
 	public void addCustomer(Customer customer){
@@ -39,7 +37,7 @@ Map<Integer, Customer> customerDb = new HashMap<>();
 		return customerDb.get(customerId);
 	}
 
-	public Customer getCustomerByUser(User user){
+	/*public Customer getCustomerByUser(User user){
 		for(Customer c : customerDb.values()) {
 			if(c.getUser().equals(user))
 				return c;
@@ -50,7 +48,7 @@ Map<Integer, Customer> customerDb = new HashMap<>();
 	public void updateCustomerAddress(Customer customer, Address address) {
 		customer.setSbAddress(address);
 		updateCustomer(customer);
-	}
+	}*/
 	
 	public int genId() {
 		return customerDb.size()+1;

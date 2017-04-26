@@ -50,7 +50,7 @@ public class CartController extends HttpServlet {
 //		cart.removeProduct(product); // add to product Cart
 //		session.setAttribute("cart", cart);
 //		
-		RequestDispatcher view = request.getRequestDispatcher("view/cart.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("cart.jsp");
 		view.forward(request, response);
 	}
 
@@ -73,7 +73,7 @@ public class CartController extends HttpServlet {
 		cart.removeProduct(product); // add to product Cart
 		session.setAttribute("cart", cart);
 		
-		RequestDispatcher view = request.getRequestDispatcher("view/cart.jsp");
+		RequestDispatcher view = request.getRequestDispatcher("cart.jsp");
 		view.forward(request, response);
 	}
 

@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="style.css">
+  <title>Insert title here</title>
 </head>
 <body>
 	<div>
@@ -17,5 +18,6 @@
 	</div>
 	
 	<a href="ProductController.do?action=addToCart&productId=<c:out value="${product.productId}"/>">Add To Cart</a>
+	|| <a href="ProductController.do?action=listProducts">back to list of products</a>
 </body>
 </html>

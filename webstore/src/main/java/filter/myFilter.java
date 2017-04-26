@@ -1,4 +1,4 @@
-package controller;
+package filter;
 
 
 import java.io.IOException;
@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UserDAO;
 import model.User;
 
 //@WebFilter("/myFilter")
@@ -37,8 +36,8 @@ public class myFilter implements Filter {
 			System.out.println("my filter .....");
 			HttpServletResponse res = (HttpServletResponse) response;
 			
-			UserDAO vUsers = new UserDAO();
-			HashMap<String, String> vu = new HashMap<>(vUsers.setOfUsers());
+			//UserDAO vUsers = new UserDAO();
+			HashMap<String, String> vu = new HashMap<>();//vUsers.setOfUsers());
 			User currentUser;
 
 			String un = request.getParameter("user_name");

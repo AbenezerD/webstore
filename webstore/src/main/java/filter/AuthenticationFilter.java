@@ -1,7 +1,6 @@
-package controller;
+package filter;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UserDAO;
-import model.User;
 
 /**
  * Servlet Filter implementation class AuthenticationFilter
@@ -41,34 +38,17 @@ public class AuthenticationFilter implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletRequest req = (HttpServletRequest) request;
+		HttpServletResponse res = (HttpServletResponse) response;
 		
 		HttpSession session = req.getSession();
-		
-		
-		if (req.getMethod().equalsIgnoreCase("POST")) {
-			System.out.println("my filter .....");
-			HttpServletResponse res = (HttpServletResponse) response;
-			
-			UserDAO vUsers = new UserDAO();
-			HashMap<String, String> vu = new HashMap<>(vUsers.setOfUsers());
-			User currentUser;
-
-			String un = request.getParameter("user_name");
-			String pw = request.getParameter("pass");
-			
-			currentUser = new User(un, pw);
-			if (vu.containsKey(currentUser.getUsername()) && vu.get(currentUser.getUsername()).equals(currentUser.getPassword())) {
-				System.out.println("input is verfied..");
 				
-				session.setAttribute("user_info", currentUser);
-				
-			} else {
-				session.setAttribute("err_msg", "Username and/or password invalid.");
-				System.out.println("invalid user from doFilter");
-			}
+		if (req.getMethod().equalsIgnoreCase("GET") && session.getAttribute("user_info") == null) {
+			res.sendRedirect("weblogin");			
 		}
-		chain.doFilter(req, response);
+		else {
+			chain.doFilter(req, res);
+		}
 	}
 
 	/**

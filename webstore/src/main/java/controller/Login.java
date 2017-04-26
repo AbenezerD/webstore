@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UserDAO;
+import dao.UserImp;
 import model.User;
 
 //@WebServlet("/Login")
@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getSession().getAttribute("user_info") == null)
-			request.getRequestDispatcher("view/login.jsp").forward(request, response);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		else
 			response.sendRedirect("AddressController");
 	}
@@ -31,35 +31,33 @@ public class Login extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 
-		UserDAO vUsers = new UserDAO();
-		HashMap<String, String> vu = new HashMap<>(vUsers.setOfUsers());
-		User user;
-
-		String un = request.getParameter("user_name");
-		String pw = request.getParameter("pass");
+		UserImp userDb = new UserImp();
+		
+		String un = request.getParameter("user_name").trim();
+		String pw = request.getParameter("pass").trim();
 		String remember = request.getParameter("remember");
 		
-		user = new User(un, pw);
-		if (vu.containsKey(user.getUsername()) && vu.get(user.getUsername()).equals(user.getPassword())) {
-	
+		User user=userDb.getUserById(un);
+
+		if (user.getUsername().trim().equals(un) && user.getPassword().trim().equals(pw)) {
+			
 			request.getSession().setAttribute("userName", user.getUsername());
 			 
 			if("on".equals(remember)){
-				Cookie cok= new Cookie("user",user.getUsername());
-				cok.setMaxAge(1*24*60*60);
-				response.addCookie(cok);
+				Cookie cookie= new Cookie("user",user.getUsername());
+				cookie.setMaxAge(1*24*60*60);
+				response.addCookie(cookie);
 			}else{
-				Cookie cok= new Cookie("user", null);
-				cok.setMaxAge(0);
-				response.addCookie(cok);
+				Cookie cookie= new Cookie("user", null);
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
 			}
-
+			request.getSession().setAttribute("user_info", user);
 			response.sendRedirect("AddressController");
 		}
 		else {	
 			request.setAttribute("err_msg", "Username and/or password invalid.");
-			request.getRequestDispatcher("view/login.jsp").forward(request, response);
-			
+			doGet(request, response);			
 		}
 	}
 

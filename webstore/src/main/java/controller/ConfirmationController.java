@@ -9,26 +9,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
-@WebServlet("/Home")
-public class Home extends HttpServlet {
+@WebServlet("/ConfirmationController")
+public class ConfirmationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-      
-    public Home() { super();}
+   
+    public ConfirmationController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		if(session != null) {
-			session.setAttribute("cart", null);
-		}
-			
-		response.sendRedirect("listProducts.jsp");
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
+		response.sendRedirect("Home");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//doGet(request, response);
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

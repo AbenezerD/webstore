@@ -6,21 +6,30 @@ public class Customer {
 	private String name;
 	private String email;
 	private String phone;
-	private Address sbAddress;
-	private User user;
+	private int userId;
+	private int addressId;
 
-	public Customer(int id, User user) {
+	public Customer(int id, int userid) {
 		this.id = id;
-		this.user = user;
+		this.userId = userid;
 	}
 	
-	public Customer(String name, String email, String phone, Address sbAddress,
-			User user) {
+	public Customer(String name, String email, String phone, int userid) {
 		this.name = name;
 		this.email = email;
 		this.phone = phone;
-		this.sbAddress = sbAddress;
-		this.user = user;
+		this.userId = userid;
+	}
+
+	public Customer() {
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -47,28 +56,19 @@ public class Customer {
 		this.phone = phone;
 	}
 
-	public Address getSbAddress() {
-		return sbAddress;
+	public int getAddressId() {
+		return addressId;
 	}
 
-	public void setSbAddress(Address sbAddress) {
-		this.sbAddress = sbAddress;
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
 
-	public User getUser() {
-		return user;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(int userid) {
+		this.userId = userid;
 	}
-
-	public int getId() {
-		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-
 }

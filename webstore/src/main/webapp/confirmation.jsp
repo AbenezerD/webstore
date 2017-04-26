@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Confirmation</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -16,13 +17,13 @@
 	<div>
 		<fieldset>
 			<legend>Confirmation: </legend>
-			<blockquote>You are successfully finished the Purchasing process, and bellow
+			<blockquote>You have successfully finished the Purchasing process, and bellow
 			listed products will arrive on time to this shipping address...<br> 
 			 Thank you! for choosing us.</blockquote>
 			
-			<p>Customer: ${customer.user.username}</p>
-			<p>Shipping Address: ${customer.sbAddress.shipping}</p>
-			<p>Billing Address: ${customer.sbAddress.billing}</p>
+			<p>Customer: ${customer.name}</p>
+			<p>Shipping Address: ${address.shipping}</p>
+			<p>Billing Address: ${address.billing}</p>
 			
 		</fieldset>
 	</div>
@@ -44,6 +45,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<a href="Home">Go To Home</a> || <a href="logout">Log out</a>
+	<a href="ConfirmationController">Go To Home</a> || <a href="logout">Log out</a>
 </body>
 </html>

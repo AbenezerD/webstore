@@ -10,28 +10,46 @@
 <title>Add New Product</title>
 </head>
 <body>
+<jsp:include page="page_header.jsp" />
 	<form action="ProductController.do" method="post">
 		<fieldset>
-			<div>
-				<label for="productId">Contact ID</label> <input type="text"
-					name="productId" value="<c:out value="${product.productId}" />"
-					readonly="readonly" placeholder="Product ID[will be generated if not provided]" />
-			</div>
-			<div>
+			<p>
+				<label for="productId">Product ID</label> <input type="text"
+					name="productId" value="<c:out value="${cProduct.productId}" />"
+					placeholder="Product ID[will be generated if not provided]" />
+			</p>
+			<p>
 				<label for="name">Name</label> <input type="text"
-					name="name" value="<c:out value="${product.name}" />"
+					name="name" value="<c:out value="${cProduct.name}" />"
 					placeholder="Name" />
-			</div>
-			<div>
-				<label for="price">Phone</label> <input type="text"
-					name="price" value="<c:out value="${product.price}" />"
+			</p>
+			<p>
+				<label for="price">Price</label> <input type="text"
+					name="price" value="<c:out value="${cProduct.price}" />"
 					placeholder="Price" />
-			</div>
-
+			</p>
+			<p>
+				<label for="description">Description</label> <input type="text"
+					name="description" value="<c:out value="${cProduct.description}" />"
+					placeholder="Description" />
+			</p>
+			<p>
+				<label for="image">Image</label> <input type="text"
+					name="image" value="<c:out value="${cProduct.image}" />"
+					placeholder="Image" />
+			</p>
+			<p>
+				<label for="quantity">Quantity</label> <input type="text"
+					name="quantity" value="<c:out value="${cProduct.quantity}" />"
+					placeholder="Quantity" />
+			</p>
+			<input type="hidden" name="action" value="${action}"/>
 			<div>
 				<input type="submit" value="Submit" />
 			</div>
 		</fieldset>
 	</form>
+	
+<jsp:include page="page_footer.jsp" />
 </body>
 </html>

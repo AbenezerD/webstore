@@ -20,7 +20,8 @@ public class Logout extends HttpServlet {
 			session.invalidate();
 			//session.setMaxInactiveInterval(4);
 		}
-		response.sendRedirect("Home");			
+		request.setAttribute("action", "reset");
+		response.sendRedirect("home.jsp");		
 	}
 
 	/**

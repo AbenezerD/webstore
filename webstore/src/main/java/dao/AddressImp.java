@@ -10,6 +10,7 @@ import com.mysql.jdbc.Statement;
 import dbconnection.ConnectionManager;
 import model.Address;
 import model.Customer;
+import model.Product;
 
 public class AddressImp {
 	ConnectionManager addressDb = new ConnectionManager();
@@ -49,7 +50,41 @@ public class AddressImp {
 
 	}
 	
-	
+	public Address getAddressById(int aId) {
+
+		Address address = new Address(); // = new Product();
+
+		try {
+
+			// Statement st;
+			ResultSet rs;
+
+			// st = con.createStatement();
+			PreparedStatement preparedStmt = con
+					.prepareStatement("SELECT * FROM address WHERE id = ?");
+
+			preparedStmt.setInt(1, aId); // from setString
+
+			rs = preparedStmt.executeQuery();
+			// ArrayList<String> record;
+			while (rs.next()) {
+				// record = new ArrayList<String>();
+
+				address.setId(rs.getInt(1));
+				address.setShipping(rs.getString(2));
+				address.setBilling(rs.getString(3));
+				// data.add(record);
+			}
+			// con.close();
+			return address;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+
+		}
+
+	}
 
 
 }

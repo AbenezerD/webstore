@@ -10,21 +10,26 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+    <link rel="stylesheet" href="CSS/styleMain.css">
+    
 </head>
 <body>
-
-<h2>Customer information</h2>
-<form action="CustomerController" method="post">
-	<table width=300px align=center>
-		<tr><td><label>Full Name:</label><input type="text" name="name" class="form-control" /></td></tr>
-		<tr><td><label>E-mail:</label><input type="text" name="email" class="form-control" /></td></tr>
-		<tr><td><label>Phone:</label><input type="text" name="phone" class="form-control" /></td></tr>
-		<tr><td><label>User Name:</label><input type="text" required name="uName" class="form-control"/></td></tr>
-		<tr><td><label>Password:</label><input type="password" required name="pwd" class="form-control" /></td></tr>
-		<tr><td><br /><input type="submit" value="Continue" class="btn-primary" /></td></tr>
-	</table>
-</form>
-
+<jsp:include page="page_header.jsp" />
+	<div class="mainContainer">
+		<h3>Customer information</h3>
+		<form action="CustomerController" method="post">
+			<table class="table1">
+				<tr><td><label>Full Name:</label><input required type="text" name="name" class="form-control" /></td></tr>
+				<tr><td><label>E-mail:</label><input  type="text" name="email" class="form-control" /></td></tr>
+				<tr><td><label>Phone:</label><input required type="text" name="phone" class="form-control" /></td></tr>
+				<tr><td><label>User Name:</label><input type="text" required name="uName" class="form-control"/></td></tr>
+				<tr><td><label>Password:</label><input type="password" required name="pwd" class="form-control" /></td></tr>
+				<tr><td><br /><input type="submit" value="Continue" class="btn btn-primary" /></td></tr>
+			</table>
+		</form>
+	</div>
+<jsp:include page="page_footer.jsp" />
 </body>
 </html>
 

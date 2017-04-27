@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>webstore</display-name>
   <welcome-file-list>
-    <welcome-file>Home</welcome-file>
+    <welcome-file>home.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>Login</servlet-name>
@@ -28,12 +28,12 @@
     <servlet-name>ProductController</servlet-name>
     <url-pattern>/ProductController.do</url-pattern>
   </servlet-mapping>
-  <filter>
-    <filter-name>LoginFilter</filter-name>
-    <filter-class>filter.AuthenticationFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>LoginFilter</filter-name>
-    <servlet-name>AddressController</servlet-name>
-  </filter-mapping>
+  <servlet>
+    <servlet-name>Home</servlet-name>
+    <servlet-class>controller.Home</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Home</servlet-name>
+    <url-pattern>/Home</url-pattern>
+  </servlet-mapping>
 </web-app>

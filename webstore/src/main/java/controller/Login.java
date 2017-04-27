@@ -19,6 +19,12 @@ import model.User;
 //@WebServlet("/Login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private UserImp userDb;
+	
+	@Override
+	public void init() throws ServletException {
+		userDb = new UserImp();
+	}
     public Login() {}
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,29 +37,43 @@ public class Login extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 
-		UserImp userDb = new UserImp();
-		
 		String un = request.getParameter("user_name").trim();
 		String pw = request.getParameter("pass").trim();
 		String remember = request.getParameter("remember");
+		String loginType = request.getParameter("logintype");
 		
 		User user=userDb.getUserById(un);
 
 		if (user.getUsername().trim().equals(un) && user.getPassword().trim().equals(pw)) {
 			
-			request.getSession().setAttribute("userName", user.getUsername());
-			 
-			if("on".equals(remember)){
-				Cookie cookie= new Cookie("user",user.getUsername());
-				cookie.setMaxAge(1*24*60*60);
-				response.addCookie(cookie);
-			}else{
-				Cookie cookie= new Cookie("user", null);
-				cookie.setMaxAge(0);
-				response.addCookie(cookie);
+			if(loginType.equalsIgnoreCase("admin")) {
+				if(user.isAdmin()){
+					request.getSession().setAttribute("userName", user.getUsername());
+					request.getSession().setAttribute("user_info", user);
+					request.getSession().setAttribute("admin", "admin");
+							
+					response.sendRedirect("ProductController.do?action=listProducts");
+				}
+				else{
+					request.setAttribute("err_msg", "Unauthorized user.");
+					response.sendRedirect("adminlogin.jsp");								
+				}
 			}
-			request.getSession().setAttribute("user_info", user);
-			response.sendRedirect("AddressController");
+			else {
+				request.getSession().setAttribute("userName", user.getUsername());
+				request.getSession().setAttribute("user_info", user);
+				
+				if("on".equals(remember)){
+					Cookie cookie= new Cookie("user",user.getUsername());
+					cookie.setMaxAge(7*24*60*60);
+					response.addCookie(cookie);
+				}else{
+					Cookie cookie= new Cookie("user", null);
+					cookie.setMaxAge(0);
+					response.addCookie(cookie);
+				}
+				response.sendRedirect("AddressController");
+			}
 		}
 		else {	
 			request.setAttribute("err_msg", "Username and/or password invalid.");

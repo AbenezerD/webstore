@@ -5,32 +5,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Show All Contacts</title>
+<title>home: products</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="script.js"></script>
- 
+  
+  <script src="javaScript/script.js"></script>  
+  <link rel="stylesheet" href="CSS/styleMain.css"> 
+
 </head>
+
 <body>
-<h2>A&E Shopping App.</h2>
-Welcome ${userName} <a href="logout">LogOut</a> 
-<center><p><a href="">About</a> || <a href="Cart" >Cart</a></p></center>
-	<div id="listProducts">
+<jsp:include page="page_header.jsp" />
+	<img src="images/my.png"><br>
+	<div class="mainContainer">
+	Welcome ${userName}
+
+		<div id="listProducts"> 
+			welcome to our shopping app...
+		 </div>
 	</div>
-	<%-- <c:forEach items="${products}" var="product">
-	<div>
-	<a style="float:left" href="ProductController.do?action=detail&productId=${product.productId}"><img alt="product_image" src="${product.image}" height="100px" width="100px"></a>
-	<p><strong>${product.name}</strong></p>
-	<p><em>${product.price}</em></p>
-	<p style="clear:left">5 left in store</p>
-	</div>
-	</c:forEach> --%>
-	<pre>
-	</pre>
-	<h3>List Of Products Added to the Cart</h3>
+	
+	<h4>List Of Products Added to the Cart</h4>
 	<table  border=1 width="400px">
 			<c:forEach items="${cart.products}" var="product">
 				<tr>
@@ -46,10 +44,10 @@ Welcome ${userName} <a href="logout">LogOut</a>
 	</p>
 </body>
 </html>
-	<pre>
-	</pre>
 	<p>
 		<!-- <a href="ProductController.do?action=insert">Add Contact</a> -->
 	</p>
+
+<jsp:include page="page_footer.jsp" />
 </body>
 </html>

@@ -10,18 +10,25 @@
   <link rel="stylesheet" href="style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+  
+  <link rel="stylesheet" href="CSS/styleMain.css">
 </head>
 <body>
-
-<h2>Shipping and Billing address information</h2>
-<form action="AddressController" method="post">
-	<table width=500px align=center>
-	<tr><td><label>Shipping Address:</label><input type="text" required name="sAddress" placeholder="St No., zip code, city, state" class="form-control" /></td></tr>
-		<tr><td><label>Billing Address:</label><input type="text" required name="bAddress" placeholder="St No., zip code, city, state" class="form-control" /></td></tr>
-		<tr><td><br /><input type="submit" value="Continue" class="btn-primary" /></td></tr>
-	</table>
-</form>
-
+<jsp:include page="page_header.jsp" />
+	
+	<div class="mainContainer">
+		
+	<h3>Shipping and Billing address information</h3>
+	<form action="AddressController" method="post">
+		<table width=500px align=center>
+		<tr><td><label>Shipping Address:</label><input type="text" required name="sAddress" placeholder="St No., zip code, city, state" class="form-control" /></td></tr>
+			<tr><td><label>Billing Address:</label><input type="text" required name="bAddress" placeholder="St No., zip code, city, state" class="form-control" /></td></tr>
+			<tr><td><br /><input type="submit" value="Continue" class="btn btn-primary" /></td></tr>
+		</table>
+	</form>
+	<p><c:out value = "${store}"></c:out></p>
+	</div>
 </body>
+<jsp:include page="page_footer.jsp" />
 </html>
+

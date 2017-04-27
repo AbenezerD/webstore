@@ -3,11 +3,11 @@ $(function() {
 	//setInterval(ajax_call, 1000*30);
 
 	function ajax_call(){
-		var time = 1000*5;
+		var time = 1000*1;
 		setTimeout(function(){
 			$.ajax({
-				url: "ProductController.do",
-				type: "GET",
+				url: "Home",
+				type: "POST",
 				data: {"action": "listProducts"},
 				success: ajaxSuccess,
 				complete: ajax_call
@@ -31,12 +31,12 @@ $(function() {
 				});
 				var a = $("<a>", {
 					"style": "float:left",
-					"href": "ProductController.do?action=detail&productId="+this.productId
+					"href": "ProductDetail?productId="+this.productId
 				});
 				a.append(img);
 				var prName = $("<p>").html("<strong>" + this.name + "</strong>");
 				var prPrice= $("<p>").html("<em>" + this.price + "</em>");
-				var prLeft= $("<p>", {"style":"clear:left"}).html("7 left in store");
+				var prLeft= $("<p>", {"style":"clear:left"}).html(this.quantity +" left in store");
 				
 				var div = $("<div>");//.append(a).append(prName).append(prPrice).append(prLeft);
 				div.append(a);

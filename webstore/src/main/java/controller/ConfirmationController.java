@@ -20,8 +20,8 @@ public class ConfirmationController extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.sendRedirect("Home");
+		request.getSession().setAttribute("cart", null);
+		response.sendRedirect("home.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

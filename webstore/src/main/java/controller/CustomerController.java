@@ -37,7 +37,7 @@ public class CustomerController extends HttpServlet {
 		String uName = request.getParameter("uName");
 		String pwd = request.getParameter("pwd");
 		
-		User user = new User(uName,pwd);
+		User user = new User(uName,pwd,false);
 		User currentUser = userDb.addUser(user);
 	
 		//User currentUser = userDb.getUserById(user.getUsername());

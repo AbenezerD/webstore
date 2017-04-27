@@ -4,10 +4,12 @@ public class User {
 	private int userid;
 	private String username;
 	private String password;
+	private boolean admin;
 
-	public User(String u, String p) {
+	public User(String u, String p, boolean admin) {
 		username = u;
 		password = p;
+		this.admin = admin;
 	}
 
 	public User() {
@@ -37,7 +39,14 @@ public class User {
 		this.password = password;
 	}
 	
+	public boolean isAdmin() {
+		return admin;
+	}
 
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if(!(obj instanceof User))

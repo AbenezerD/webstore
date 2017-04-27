@@ -10,6 +10,9 @@ public class Address {
 		this.billing = billing;
 	}
 
+	public Address() {
+	}
+
 	public int getId() {
 		return id;
 	}
